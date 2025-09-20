@@ -9,3 +9,7 @@ tsfresh
 seaborn
 matplotlib
 pyarrow
+tensorflow
+tensorflow-macos
+tensorflow-metal
+
