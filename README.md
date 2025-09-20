@@ -69,26 +69,40 @@ O projeto está dividido em 4 fases principais:
     *(Nota: O ficheiro `requirements.txt` será criado no próximo passo ).*
 
 ---
+## 🗺️ Roadmap do Projeto (Atualizado)
 
-## 🗺️ Roadmap do Projeto
+O projeto está dividido em fases claras, construindo progressivamente a nossa solução.
 
--   [ ] **Fase 1: Coleta e Engenharia de Dados**
-    -   [ ] Script para download de dados históricos via Freqtrade.
-    -   [ ] Notebook de exploração de dados (`notebooks/01-data-exploration.ipynb`).
-    -   [ ] Implementação da engenharia de features (`src/feature_engineering.py`).
-    -   [ ] Implementação do Método Triple-Barrier (`src/labeling.py`).
--   [ ] **Fase 2: Treinamento do Modelo**
-    -   [ ] Notebook de prototipagem do modelo LSTM (`notebooks/02-model-prototyping.ipynb`).
-    -   [ ] Script de treino e validação do modelo (`scripts/train_model.py`).
--   [ ] **Fase 3: Integração com Freqtrade**
-    -   [ ] Configuração do Freqtrade e FreqAI.
-    -   [ ] Criação da estratégia `OracleStrategy.py` em `freqtrade/user_data/strategies/`.
--   [ ] **Fase 4: Backtesting e Otimização**
-    -   [ ] Execução de backtests e análise de resultados.
-    -   [ ] Otimização da estratégia com Hyperopt.
--   [ ] **Documentação**
-    -   [ ] Criar diagrama da arquitetura.
-    -   [ ] Detalhar o processo de re-treino do modelo.
+- [x] **✅ Fase 1: Coleta e Engenharia de Dados**
+  - [x] Coleta de 5 anos de dados para 5 ativos principais (BTC, ETH, BNB, SOL, XRP) em 7 timeframes.
+  - [x] Análise Exploratória de Dados (EDA) no notebook `01-Data-Exploration.ipynb`.
+  - [x] Criação de features técnicas (SMA, EMA, RSI, Bollinger, MACD).
+  - [x] Criação de features de tempo.
+  - [x] Implementação do "Triple-Barrier Method" para criar os labels (Comprar/Vender/Neutro).
+  - [x] Geração do dataframe final de features (`final_btc_features.feather`).
+
+- [x] **✅ Fase 2: Treinamento do Modelo de Deep Learning**
+  - [x] Configuração do ambiente TensorFlow para GPU em Apple Silicon (M3).
+  - [x] Construção da arquitetura do modelo LSTM no notebook `02-Model-Training.ipynb`.
+  - [x] Treino do modelo V1 com uma acurácia de **~66%** no conjunto de teste.
+  - [x] Implementação de "Early Stopping" para evitar overfitting.
+  - [x] O modelo treinado (`oracle_lstm_v1.h5`) e o scaler (`scaler_v1.pkl`) foram guardados.
+
+- [x] **✅ Fase 3: Criação do Indicador "Oráculo" (Prova de Conceito)**
+  - [x] Criação do script de previsão no notebook `03-Prediction-Script.ipynb`.
+  - [x] Demonstração de como carregar o modelo e fazer uma previsão para o próximo dia.
+
+- [ ] **⏳ Fase 4: Backtesting e Otimização (Próximo Passo)**
+  - [ ] Criar um script de backtesting para avaliar o desempenho do modelo ao longo do tempo.
+  - [ ] Calcular métricas de trading (Profit Factor, Sharpe Ratio, Drawdown).
+  - [ ] Comparar os resultados com uma estratégia de base.
+  - [ ] (Opcional) Otimizar os limiares de probabilidade para entrada de trades.
+
+- [ ] **Fase 5: Integração e Produção**
+  - [ ] Adaptar o script de previsão para uma estratégia de inferência no FreqAI.
+  - [ ] Implementar a lógica de sinais no Freqtrade.
+  - [ ] Executar o modelo em "dry-run" ou "live-run".
+
 
 ---
 
