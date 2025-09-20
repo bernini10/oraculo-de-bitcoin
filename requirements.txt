@@ -6,3 +6,6 @@ freqtrade
 jupyter
 tsfresh
 
+seaborn
+matplotlib
+pyarrow
