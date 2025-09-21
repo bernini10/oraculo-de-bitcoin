@@ -98,13 +98,18 @@ Fase 5: Engenharia de Features Avançada (Concluída)
 2. Criação de Features de Fluxo: Desenvolvimento de um novo conjunto de features, incluindo `buy_ratio`, `trade_count_accel` e `volume_dominance`, para capturar a microestrutura do mercado.
 3. Criação do Dataset Enriquecido: Junção das novas features com os dados de preço (OHLCV) e criação de uma variável alvo (`target`) para o próximo ciclo de treino.
 
-Fase 6: Re-treinamento e Avaliação do Modelo (Próximo Passo)
-1. Preparação dos Dados: Escalonamento das features e divisão em conjuntos de treino/validação/teste.
-2. Treinamento do Modelo: Treinar a arquitetura de Deep Learning com o novo dataset enriquecido.
-3. Avaliação Offline: Analisar as métricas de performance do modelo (Acurácia, Precisão, Recall, F1-Score, Matriz de Confusão).
-4. Integração e Backtesting: Integrar o novo modelo no Freqtrade e realizar um backtest financeiro para avaliar a performance em condições de mercado simuladas.
+Fase 6: Re-treinamento e Avaliação do Modelo (Concluída)
+1. Preparação dos Dados: O dataset final foi escalonado e dividido em conjuntos de treino, validação e teste.
+2. Treinamento do Modelo (Notebook 10): Um novo modelo LSTM foi treinado com o dataset enriquecido. A avaliação inicial mostrou um modelo "cobarde" com AUC de 0.60, que previa apenas a classe maioritária.
+3. Otimização do Limiar de Decisão: Através da análise da curva de Precisão-Recall, foi identificado um limiar de decisão ótimo de 0.12.
+4. **Conclusão:** Com o limiar ótimo, o modelo demonstrou uma vantagem estatística sobre o acaso, atingindo uma precisão de 13% (vs. 11.9% da base) e um recall de 55% para a classe de "sucesso". O modelo está pronto para o backtesting financeiro.
 
----
+Fase 7: Integração e Backtesting Final (Próximo Passo)
+1. Criação de uma estratégia FreqAI para integrar o modelo treinado.
+2. Configuração do FreqAI para usar o limiar de decisão ótimo (0.12).
+3. Execução de um backtest financeiro para avaliar a lucratividade da estratégia.
+4. Análise dos resultados do backtest e otimização final.
+
 
 ## 📄 Licença
 
