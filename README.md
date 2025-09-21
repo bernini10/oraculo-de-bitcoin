@@ -31,7 +31,7 @@ O projeto está dividido em 4 fases principais:
 
 ## 🛠️ Tecnologias e Ferramentas
 
-*   **Plataforma de Trading:** [Freqtrade](https://www.freqtrade.io/en/stable/ )
+*   **Plataforma de Trading:** [Freqtrade](https://www.freqtrade.io/en/stable/   )
 *   **Linguagem:** Python 3.9+
 *   **Bibliotecas de ML:** TensorFlow, Keras, Scikit-learn
 *   **Manipulação de Dados:** Pandas, NumPy
@@ -66,44 +66,46 @@ O projeto está dividido em 4 fases principais:
     ```bash
     pip install -r requirements.txt
     ```
-    *(Nota: O ficheiro `requirements.txt` será criado no próximo passo ).*
+    *(Nota: O ficheiro `requirements.txt` será criado no próximo passo   ).*
 
 ---
 ## Roadmap do Projeto
 
-*   [x] **Fase 1: Coleta e Engenharia de Dados (Concluída)**
-    *   [x] Download de 5 anos de dados para 5 ativos principais em múltiplos timeframes.
-    *   [x] Versionamento dos dados com Git LFS.
-    *   [x] Análise Exploratória de Dados (EDA) para entender as características do mercado.
-    *   [x] Criação de um pipeline de engenharia de features (SMA, EMA, RSI, MACD, Bollinger, ATR, features de tempo).
-    *   [x] Implementação do "Triple-Barrier Method" para rotulagem dos dados.
+Fase 1: Coleta e Engenharia de Dados (Concluída)
+1. Download de 5 anos de dados para 5 ativos principais em múltiplos timeframes.
+2. Versionamento dos dados com Git LFS.
+3. Análise Exploratória de Dados (EDA) para entender as características do mercado.
+4. Criação de um pipeline de engenharia de features (SMA, EMA, RSI, MACD, Bollinger, ATR, features de tempo).
+5. Implementação do "Triple-Barrier Method" para rotulagem dos dados.
 
-*   [x] **Fase 2: Treinamento do Modelo de Deep Learning (Concluída)**
-    *   [x] Construção de um modelo LSTM base.
-    *   [x] Implementação de um pipeline de treino e teste, incluindo normalização de dados.
-    *   [x] Otimização do modelo para hardware Apple Silicon (M3).
-    *   [x] Implementação de "Early Stopping" para combater o overfitting.
-    *   [x] Avaliação do modelo em dados de teste, atingindo ~66% de acurácia.
+Fase 2: Treinamento do Modelo de Deep Learning (Concluída)
+1. Construção de um modelo LSTM base.
+2. Implementação de um pipeline de treino e teste, incluindo normalização de dados.
+3. Otimização do modelo para hardware Apple Silicon (M3).
+4. Implementação de "Early Stopping" para combater o overfitting.
+5. Avaliação do modelo em dados de teste, atingindo ~66% de acurácia.
 
-*   [x] **Fase 3: Criação do Indicador "Oráculo" (Concluída)**
-    *   [x] Criação de um script de previsão que carrega o modelo treinado e gera probabilidades para dados novos.
+Fase 3: Criação do Indicador "Oráculo" (Concluída)
+1. Criação de um script de previsão que carrega o modelo treinado e gera probabilidades para dados novos.
 
-*   [x] **Fase 4: Backtesting e Otimização (Concluída)**
-    *   [x] Implementação de um script de backtesting para simular a estratégia de trading.
-    *   [x] Otimização dos parâmetros do Triple-Barrier (alvo/stop) e limiares de confiança.
-    *   [x] **Conclusão:** A estratégia, baseada apenas em indicadores técnicos tradicionais, não se mostrou lucrativa nos timeframes diário e de 15 minutos. O modelo não atinge confiança suficiente para operar.
+Fase 4: Backtesting e Otimização (Concluída)
+1. Implementação de um script de backtesting para simular a estratégia de trading.
+2. Otimização dos parâmetros do Triple-Barrier (alvo/stop) e limiares de confiança.
+3. **Conclusão:** A estratégia, baseada apenas em indicadores técnicos tradicionais, não se mostrou lucrativa nos timeframes diário e de 15 minutos. O modelo não atinge confiança suficiente para operar.
 
-*   [ ] **Fase 5: Engenharia de Features Avançada (Próximo Passo)**
-    *   [ ] Pesquisa e integração de novas fontes de dados (leading indicators).
-    *   [ ] **Hipótese 1: Dados de Mercado.** Integrar dados de order book, volume de transações, e dados de liquidações.
-    *   [ ] **Hipótese 2: Dados On-Chain.** Integrar métricas da blockchain do Bitcoin (ex: número de endereços ativos, taxas de transação).
-    *   [ ] **Hipótese 3: Dados de Sentimento.** Integrar análise de sentimento de redes sociais e notícias.
-    *   [ ] Re-treinar o modelo com o novo conjunto de features enriquecido e repetir o backtesting.
+Fase 5: Engenharia de Features Avançada (Concluída)
+1. Foco na Hipótese 1 (Dados de Mercado): Construção de um pipeline de dados para processar o fluxo de ordens (trades individuais) da Binance.
+2. Criação de Features de Fluxo: Desenvolvimento de um novo conjunto de features, incluindo `buy_ratio`, `trade_count_accel` e `volume_dominance`, para capturar a microestrutura do mercado.
+3. Criação do Dataset Enriquecido: Junção das novas features com os dados de preço (OHLCV) e criação de uma variável alvo (`target`) para o próximo ciclo de treino.
 
+Fase 6: Re-treinamento e Avaliação do Modelo (Próximo Passo)
+1. Preparação dos Dados: Escalonamento das features e divisão em conjuntos de treino/validação/teste.
+2. Treinamento do Modelo: Treinar a arquitetura de Deep Learning com o novo dataset enriquecido.
+3. Avaliação Offline: Analisar as métricas de performance do modelo (Acurácia, Precisão, Recall, F1-Score, Matriz de Confusão).
+4. Integração e Backtesting: Integrar o novo modelo no Freqtrade e realizar um backtest financeiro para avaliar a performance em condições de mercado simuladas.
 
 ---
 
 ## 📄 Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
-
