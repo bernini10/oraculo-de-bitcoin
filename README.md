@@ -70,45 +70,45 @@ O projeto está dividido em 4 fases principais:
 
 ---
 ## Roadmap do Projeto
+## Roadmap do Projeto
 
 Fase 1: Coleta e Engenharia de Dados (Concluída)
-1. Download de 5 anos de dados para 5 ativos principais em múltiplos timeframes.
-2. Versionamento dos dados com Git LFS.
-3. Análise Exploratória de Dados (EDA) para entender as características do mercado.
-4. Criação de um pipeline de engenharia de features (SMA, EMA, RSI, MACD, Bollinger, ATR, features de tempo).
-5. Implementação do "Triple-Barrier Method" para rotulagem dos dados.
+Download de 5 anos de dados para 5 ativos principais em múltiplos timeframes.
+Versionamento dos dados com Git LFS.
+Análise Exploratória de Dados (EDA) para entender as características do mercado.
+Criação de um pipeline de engenharia de features (SMA, EMA, RSI, MACD, Bollinger, ATR, features de tempo).
+Implementação do "Triple-Barrier Method" para rotulagem dos dados.
 
 Fase 2: Treinamento do Modelo de Deep Learning (Concluída)
-1. Construção de um modelo LSTM base.
-2. Implementação de um pipeline de treino e teste, incluindo normalização de dados.
-3. Otimização do modelo para hardware Apple Silicon (M3).
-4. Implementação de "Early Stopping" para combater o overfitting.
-5. Avaliação do modelo em dados de teste, atingindo ~66% de acurácia.
+Construção de um modelo LSTM base.
+Implementação de um pipeline de treino e teste, incluindo normalização de dados.
+Otimização do modelo para hardware Apple Silicon (M3).
+Implementação de "Early Stopping" para combater o overfitting.
+Avaliação do modelo em dados de teste, atingindo ~66% de acurácia.
 
 Fase 3: Criação do Indicador "Oráculo" (Concluída)
-1. Criação de um script de previsão que carrega o modelo treinado e gera probabilidades para dados novos.
+Criação de um script de previsão que carrega o modelo treinado e gera probabilidades para dados novos.
 
 Fase 4: Backtesting e Otimização (Concluída)
-1. Implementação de um script de backtesting para simular a estratégia de trading.
-2. Otimização dos parâmetros do Triple-Barrier (alvo/stop) e limiares de confiança.
-3. **Conclusão:** A estratégia, baseada apenas em indicadores técnicos tradicionais, não se mostrou lucrativa nos timeframes diário e de 15 minutos. O modelo não atinge confiança suficiente para operar.
+Implementação de um script de backtesting para simular a estratégia de trading.
+**Conclusão:** A estratégia, baseada apenas em indicadores técnicos tradicionais, não se mostrou lucrativa.
 
 Fase 5: Engenharia de Features Avançada (Concluída)
-1. Foco na Hipótese 1 (Dados de Mercado): Construção de um pipeline de dados para processar o fluxo de ordens (trades individuais) da Binance.
-2. Criação de Features de Fluxo: Desenvolvimento de um novo conjunto de features, incluindo `buy_ratio`, `trade_count_accel` e `volume_dominance`, para capturar a microestrutura do mercado.
-3. Criação do Dataset Enriquecido: Junção das novas features com os dados de preço (OHLCV) e criação de uma variável alvo (`target`) para o próximo ciclo de treino.
+**Foco na Hipótese 1 (Dados de Mercado):** Construção de um pipeline para processar o fluxo de ordens (trades individuais) da Binance.
+**Criação de Features de Fluxo:** Desenvolvimento de um novo conjunto de features (`buy_ratio`, `trade_count_accel`, `volume_dominance`) para capturar a microestrutura do mercado.
+**Criação do Dataset Enriquecido:** Junção das novas features com os dados de preço (OHLCV).
 
-Fase 6: Re-treinamento e Avaliação do Modelo (Concluída)
-1. Preparação dos Dados: O dataset final foi escalonado e dividido em conjuntos de treino, validação e teste.
-2. Treinamento do Modelo (Notebook 10): Um novo modelo LSTM foi treinado com o dataset enriquecido. A avaliação inicial mostrou um modelo "cobarde" com AUC de 0.60, que previa apenas a classe maioritária.
-3. Otimização do Limiar de Decisão: Através da análise da curva de Precisão-Recall, foi identificado um limiar de decisão ótimo de 0.12.
-4. **Conclusão:** Com o limiar ótimo, o modelo demonstrou uma vantagem estatística sobre o acaso, atingindo uma precisão de 13% (vs. 11.9% da base) e um recall de 55% para a classe de "sucesso". O modelo está pronto para o backtesting financeiro.
+Fase 6: Re-treinamento e Avaliação do Modelo v2 (Concluída)
+**Modelo Long-Only:** Treino e backtest de um modelo focado apenas em compras, que se mostrou ligeiramente lucrativo mas muito volátil.
+**Modelo Long/Short:** Implementação do "Método da Tripla Barreira" para criar um modelo capaz de prever subidas e descidas.
+**Otimização de Limiar:** Calibração do modelo para encontrar um limiar de confiança ótimo, resultando num "modelo especialista em shorts" com 50% de precisão estatística.
+**Backtest Financeiro Final:** Simulação da estratégia "Short-Only", que se revelou não lucrativa.
+**Conclusão Principal:** A vantagem preditiva do fluxo de ordens, por si só, não é suficiente para superar a dinâmica de risco/recompensa do mercado com a arquitetura atual.
 
-Fase 7: Integração e Backtesting Final (Próximo Passo)
-1. Criação de uma estratégia FreqAI para integrar o modelo treinado.
-2. Configuração do FreqAI para usar o limiar de decisão ótimo (0.12).
-3. Execução de um backtest financeiro para avaliar a lucratividade da estratégia.
-4. Análise dos resultados do backtest e otimização final.
+Fase 7: Otimização de Estratégia e Filtros de Regime (Próximo Passo)
+**Hipótese 1: Filtro de Regime de Mercado.** Adicionar um filtro de tendência de longo prazo (e.g., Média Móvel de 200 períodos) para permitir que o Oráculo opere apenas a favor da "maré" principal do mercado.
+**Hipótese 2: Otimização de Parâmetros.** Realizar uma otimização exaustiva dos parâmetros de gestão de risco (Stop-Loss, Take-Profit, Trailing Stop) para encontrar uma combinação lucrativa.
+**Hipótese 3: Arquitetura Alternativa.** Pesquisar e testar arquiteturas de modelo mais avançadas (e.g., Transformers) que possam capturar melhor as dependências de longo prazo.
 
 
 ## 📄 Licença
